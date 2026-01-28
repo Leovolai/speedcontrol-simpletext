@@ -1,45 +1,43 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <style>
-      .monospace {
-        font-family: monospace;
-      }
-      #textCarouselText {
-        width: 100%;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div>
-      <label for="textCarouselText"
-        >Alapalkin tekstit. Erottele rivit ;-merkillä</label
-      >
-      <textarea id="textCarouselText" type="text" rows="6"> </textarea>
-      <button id="setTextCarousel">Aseta</button>
-    </div>
-    <script>
-      const speedcontrolBundle = "nodecg-speedcontrol";
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    #textCarouselText {
+      width: 100%;
+    }
+  </style>
+</head>
 
-      const textCarouselTextElem = document.getElementById("textCarouselText");
-      const setTextCarouselButton = document.getElementById("setTextCarousel");
+<body>
+  <div>
+    <label for="textCarouselText">Alapalkin tekstit. Erottele rivit ;-merkillä</label>
+    <textarea id="textCarouselText" type="text" rows="6"> </textarea>
+    <button id="setTextCarousel">Aseta</button>
+  </div>
+  <script>
+    const speedcontrolBundle = "nodecg-speedcontrol";
 
-      const textCarouselReplicant = nodecg.Replicant(
-        "textCarousel",
-        speedcontrolBundle,
-      );
+    const textCarouselTextElem = document.getElementById("textCarouselText");
+    const setTextCarouselButton = document.getElementById("setTextCarousel");
 
-      NodeCG.waitForReplicants(textCarouselReplicant).then(() => {
-        textCarouselReplicant.on("change", (text) => {
-          textCarouselTextElem.value = text;
-        });
+    const textCarouselReplicant = nodecg.Replicant(
+      "textCarousel",
+      speedcontrolBundle,
+    );
 
-        setTextCarouselButton.addEventListener("click", () => {
-          textCarouselReplicant.value = textCarouselTextElem.value;
-        });
+    NodeCG.waitForReplicants(textCarouselReplicant).then(() => {
+      textCarouselReplicant.on("change", (text) => {
+        textCarouselTextElem.value = text;
       });
-    </script>
-  </body>
+
+      setTextCarouselButton.addEventListener("click", () => {
+        textCarouselReplicant.value = textCarouselTextElem.value;
+      });
+    });
+  </script>
+</body>
+
 </html>

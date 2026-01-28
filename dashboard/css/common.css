@@ -1,0 +1,37 @@
+      .monospace {
+          font-family: monospace;
+      }
+
+      button {
+          font-family: 'Roboto';
+          color: white;
+          border: none;
+          background-color: #212121;
+          padding: 10px;
+          font-weight: 500;
+          letter-spacing: .0892857143em;
+          text-indent: .0892857143em;
+          text-transform: uppercase;
+          font-size: 0.875rem;
+          margin: 5px 0px;
+          border-radius: 5px;
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      button:hover,
+      .button:hover {
+          background-color: #303030;
+      }
+
+      button:active,
+      .button:active {
+          scale: 0.8;
+      }
+
+      .buttonActive {
+          background-color: #34559e;
+      }
+
+      select {
+          padding: 2px;
+      }

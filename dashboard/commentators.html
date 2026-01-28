@@ -1,112 +1,123 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <style>
-      .monospace {
-        font-family: monospace;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div>
-      <div>
-        <select id="commentator-left"></select>
-        <select id="commentator-right"></select>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=PT+Sans+Narrow:wght@400;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .container {
+      display: flex;
+    }
 
-        <button id="setCommentators">Aseta</button>
-      </div>
-      <br />
-      <div>
-        <label for="newCommentator">Lisää kommentoija:</label>
-        <input id="newCommentator" type="text" />
-      </div>
-      <button id="addCommentator">Lisää</button>
+    .container select {
+      flex-grow: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="container">
+      <select id="commentator-left"></select>
+      <select id="commentator-right"></select>
     </div>
-
+    <button id="setCommentators">Aseta</button>
     <br />
-    <script>
-      const speedcontrolBundle = "nodecg-speedcontrol";
+    <div>
+      <label for="newCommentator">Lisää kommentoija:</label>
+      <input id="newCommentator" type="text" />
+    </div>
+    <button id="addCommentator">Lisää</button>
+  </div>
 
-      const runDataArray = nodecg.Replicant("runDataArray", speedcontrolBundle);
-      const allCommentators = nodecg.Replicant(
-        "allCommentators",
-        speedcontrolBundle,
-      );
-      const commentators = nodecg.Replicant("commentators", speedcontrolBundle);
+  <br />
+  <script>
+    const speedcontrolBundle = "nodecg-speedcontrol";
 
-      const setCommentatorsButton = document.getElementById("setCommentators");
-      const addCommentatorButton = document.getElementById("addCommentator");
+    const runDataArray = nodecg.Replicant("runDataArray", speedcontrolBundle);
+    const allCommentators = nodecg.Replicant(
+      "allCommentators",
+      speedcontrolBundle,
+    );
+    const commentators = nodecg.Replicant("commentators", speedcontrolBundle);
 
-      NodeCG.waitForReplicants(
-        runDataArray,
-        allCommentators,
-        commentators,
-      ).then(() => {
-        runDataArray.on("change", (newVal) => {
-          const commentatorSet = new Set(allCommentators.value);
+    const setCommentatorsButton = document.getElementById("setCommentators");
+    const addCommentatorButton = document.getElementById("addCommentator");
 
-          newVal.forEach((run) => {
-            run.teams.forEach((team) => {
-              team.players.forEach((player) => {
-                commentatorSet.add(player.name);
-              });
+    NodeCG.waitForReplicants(
+      runDataArray,
+      allCommentators,
+      commentators,
+    ).then(() => {
+      runDataArray.on("change", (newVal) => {
+        const commentatorSet = new Set(allCommentators.value);
+
+        newVal.forEach((run) => {
+          run.teams.forEach((team) => {
+            team.players.forEach((player) => {
+              commentatorSet.add(player.name);
             });
           });
-          allCommentators.value = Array.from(commentatorSet);
         });
-
-        allCommentators.on("change", (newVal) => {
-          const left = document.getElementById("commentator-left");
-          const right = document.getElementById("commentator-right");
-
-          left.innerHTML = "";
-          right.innerHTML = "";
-
-          const option = document.createElement("option");
-
-          left.appendChild(option);
-          right.appendChild(option.cloneNode(true));
-
-          newVal.forEach((player) => {
-            const leftOption = document.createElement("option");
-            leftOption.value = player;
-            leftOption.text = player;
-
-            const rightOption = leftOption.cloneNode(true);
-
-            if (player === commentators.value.left) {
-              leftOption.selected = true;
-            } else if (player === commentators.value.right) {
-              rightOption.selected = true;
-            }
-            left.appendChild(leftOption);
-            right.appendChild(rightOption);
-          });
-        });
+        allCommentators.value = Array.from(commentatorSet);
       });
 
-      setCommentatorsButton.onclick = () => {
+      allCommentators.on("change", (newVal) => {
         const left = document.getElementById("commentator-left");
         const right = document.getElementById("commentator-right");
 
-        const leftValue = left.options[left.selectedIndex].value;
-        const rightValue = right.options[right.selectedIndex].value;
+        left.innerHTML = "";
+        right.innerHTML = "";
 
-        commentators.value = {
-          left: leftValue,
-          right: rightValue,
-        };
+        const option = document.createElement("option");
+
+        left.appendChild(option);
+        right.appendChild(option.cloneNode(true));
+
+        newVal.forEach((player) => {
+          const leftOption = document.createElement("option");
+          leftOption.value = player;
+          leftOption.text = player;
+
+          const rightOption = leftOption.cloneNode(true);
+
+          if (player === commentators.value.left) {
+            leftOption.selected = true;
+          } else if (player === commentators.value.right) {
+            rightOption.selected = true;
+          }
+          left.appendChild(leftOption);
+          right.appendChild(rightOption);
+        });
+      });
+    });
+
+    setCommentatorsButton.onclick = () => {
+      const left = document.getElementById("commentator-left");
+      const right = document.getElementById("commentator-right");
+
+      const leftValue = left.options[left.selectedIndex].value;
+      const rightValue = right.options[right.selectedIndex].value;
+
+      commentators.value = {
+        left: leftValue,
+        right: rightValue,
       };
+    };
 
-      addCommentatorButton.onclick = () => {
-        const newCommentator = document.getElementById("newCommentator");
+    addCommentatorButton.onclick = () => {
+      const newCommentator = document.getElementById("newCommentator");
 
-        if (!allCommentators.value.includes(newCommentator.value)) {
-          allCommentators.value.push(newCommentator.value);
-        }
-      };
-    </script>
-  </body>
+      if (!allCommentators.value.includes(newCommentator.value)) {
+        allCommentators.value.push(newCommentator.value);
+      }
+    };
+  </script>
+</body>
+
 </html>
