@@ -42,13 +42,15 @@
         "name": "Text Carousel",
         "title": "Text Carousel",
         "width": 3,
-        "file": "textcarousel.html"
+        "file": "textcarousel.html",
+        "workspace": "FINNRUNS Graphics"
       },
       {
         "name": "Backgrounds",
         "title": "Backgrounds",
         "width": 3,
-        "file": "backgrounds.html"
+        "file": "backgrounds.html",
+        "workspace": "FINNRUNS Graphics"
       }
     ],
     "graphics": [
