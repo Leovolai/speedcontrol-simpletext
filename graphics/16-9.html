@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>16-9 Layout</title>
+    <title>16:9 Layout</title>
 
     <script type="module" src="./js/layouts.js"></script>
     <link rel="stylesheet" href="css/all.min.css">
@@ -19,7 +19,14 @@
             <div class="tag">
                 <span id="player"></span>
             </div>
-            <div id="commentatorContainer"></div>
+            <div id="commentatorContainer">
+                <div class="tag">
+                    <span id="commentatorLeft"></span>
+                </div>
+                <div class="tag">
+                    <span id="commentatorRight"></span>
+                </div>
+            </div>
         </div>
         <img src="img/sponsor_gamepit.png"></img>
         <div class="tag producerContainer">
@@ -31,19 +38,19 @@
 
     <div id="runInfo">
         <div class="gameContainer">
-            <span id="gameTitle">The Name Of The Game 2: The Curse of Sequelitis</span>
+            <span id="gameTitle"></span>
             <div class="gameTagContainer">
                 <div class="tag">
                     <i class="fa-solid fa-list"></i>
-                    <span id="gameCategory">co-op any%</span>
+                    <span id="gameCategory"></span>
                 </div>
                 <div class="tag">
                     <i class="fa-solid fa-gamepad"></i>
-                    <span id="gameSystem">N64</span>
+                    <span id="gameSystem"></span>
                 </div>
                 <div class="tag">
                     <i class="fa-solid fa-clock"></i>
-                    <span id="gameEstimate">01:23:45</span>
+                    <span id="gameEstimate"></span>
                 </div>
             </div>
         </div>
@@ -54,20 +61,6 @@
 
 
     <div id="bottomBar"></div>
-
-    <script type="module">
-        import { initBottomBar } from './js/bottomBar.js';
-
-        fetch('bottombar.html')
-            .then(res => res.text())
-            .then(html => {
-                const container = document.getElementById('bottomBar');
-                container.innerHTML = html;
-                initBottomBar();
-            });
-    </script>
-
-
     <div id="grid-container"></div>
 
 </body>

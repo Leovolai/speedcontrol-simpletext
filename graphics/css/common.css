@@ -27,6 +27,10 @@ body {
     gap: 5px;
 }
 
+#camera div {
+    flex-grow: 1;
+}
+
 .leftBar {
     display: flex;
     flex-direction: column;
@@ -38,13 +42,14 @@ body {
     margin: 0;
 }
 
-.gameContainer {
+.gameContainer,
+.timerContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    justify-self: center;
     padding: 10px;
+
 }
 
 #gameTitle {
@@ -53,12 +58,6 @@ body {
     text-shadow: 3px 3px black;
     display: inline-block;
     line-height: 1.2;
-}
-
-.timerContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #timer {
@@ -101,26 +100,9 @@ img {
     max-width: 80%;
 }
 
-.twitchLogo::before {
-    background-image: url(../img/Twitch_Logo.png);
-    display: inline-flex;
-    width: auto;
-    margin: 0 10px 0 0;
-    height: auto;
-    content: "";
-}
-
-.twitchLogo {
-    display: inline-flex;
-    align-items: center;
-}
-
-.emptylogo {
-    display: inline-flex;
-    align-items: center;
-}
-
-#player {
+#player,
+#player1,
+#player2 {
     opacity: 1;
     transition: opacity 0.5s;
 }

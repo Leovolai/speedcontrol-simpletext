@@ -4,7 +4,6 @@
     flex-direction: column;
     gap: 10px;
     justify-self: flex-end;
-
     font-size: 25px;
 }
 
@@ -22,8 +21,7 @@
 }
 
 #runInfo {
-    display: grid;
-    grid-template-columns: auto 436px;
+    display: flex;
 }
 
 #gameTitle {
@@ -34,11 +32,12 @@
     font-size: 22px;
 }
 
+.gameContainer {
+    flex-grow: 1;
+}
+
 .timerContainer {
     border-left: 2px solid var(--border-color);
     font-size: 80px;
-}
-
-.gameScreen {
-    border-left: var(--border-width) var(--border-style) var(--border-color);
+    width: 482px;
 }

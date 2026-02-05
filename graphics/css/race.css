@@ -1,0 +1,30 @@
+#camera {
+    justify-content: space-around;
+}
+
+#sponsor {
+    place-content: center;
+}
+
+#runInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#gameTitle {
+    font-size: 35px;
+}
+
+.gameTagContainer {
+    font-size: 20px;
+}
+
+.timerContainer {
+    font-size: 70px;
+}
+
+.gameScreen {
+    border-left: var(--border-width) var(--border-style) var(--border-color);
+}
