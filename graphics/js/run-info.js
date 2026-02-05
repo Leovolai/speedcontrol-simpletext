@@ -63,21 +63,24 @@ $(() => {
   });
 
   commentators.on("change", (newVal) => {
-    if (newVal && (newVal.left || newVal.right)) {
-      const leftDiv = newVal.left
-        ? `<div class="tag"><i class="fa-solid fa-sharp fa-headset"></i> ${newVal.left}</div>`
+    const leftElem = document.getElementById("commentatorLeft");
+    const rightElem = document.getElementById("commentatorRight");
+
+    if (newVal) {
+      leftElem.innerHTML = newVal.left
+        ? `<i class="fa-solid fa-sharp fa-headset"></i> ${newVal.left}`
         : "";
-      const rightDiv = newVal.right
-        ? `<div class="tag"><i class="fa-solid fa-sharp fa-headset"></i> ${newVal.right}</div>`
+      rightElem.innerHTML = newVal.right
+        ? `<i class="fa-solid fa-sharp fa-headset"></i> ${newVal.right}`
         : "";
       hostContainer.css("flex-direction", "");
-      commentatorContainer.empty().append(leftDiv + rightDiv);
     } else {
-      commentatorContainer.empty();
-
+      leftElem.innerHTML = "";
+      rightElem.innerHTML = "";
       hostContainer.css("flex-direction", "column-reverse");
     }
   });
+
 
   producer.on("change", (newVal) => {
     const producerSpan = document.getElementById("producerName");
