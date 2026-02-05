@@ -35,6 +35,8 @@ $(() => {
   );
   const donateStatus = nodecg.Replicant("donateStatus", speedcontrolBundle);
   const commentators = nodecg.Replicant("commentators", speedcontrolBundle);
+  const producer = nodecg.Replicant("producer", speedcontrolBundle);
+
   const textCarouselReplicant = nodecg.Replicant(
     "textCarousel",
     speedcontrolBundle,
@@ -63,10 +65,10 @@ $(() => {
   commentators.on("change", (newVal) => {
     if (newVal && (newVal.left || newVal.right)) {
       const leftDiv = newVal.left
-        ? `<div class="blue-bg">${newVal.left}</div>`
+        ? `<div class="tag"><i class="fa-solid fa-sharp fa-headset"></i> ${newVal.left}</div>`
         : "";
       const rightDiv = newVal.right
-        ? `<div class="blue-bg">${newVal.right}</div>`
+        ? `<div class="tag"><i class="fa-solid fa-sharp fa-headset"></i> ${newVal.right}</div>`
         : "";
       hostContainer.css("flex-direction", "");
       commentatorContainer.empty().append(leftDiv + rightDiv);
@@ -76,6 +78,19 @@ $(() => {
       hostContainer.css("flex-direction", "column-reverse");
     }
   });
+
+  producer.on("change", (newVal) => {
+    const producerSpan = document.getElementById("producerName");
+    if (!producerSpan) return;
+
+    if (newVal) {
+      producerSpan.innerHTML =
+        `<i class="fa-solid fa-microphone"></i> ${newVal}`;
+    } else {
+      producerSpan.innerHTML = "";
+    }
+  });
+
 
   textCarouselReplicant.on("change", (newVal) => {
     if (newVal) {
@@ -166,9 +181,7 @@ $(() => {
   const showPlayerName = (elem, play) => {
     elem.addClass("hide");
     setTimeout(function () {
-      elem.removeClass("twitchLogo");
-      elem.html(play.name);
-      elem.addClass("emptylogo");
+      elem.html(`<i class="fa-solid fa-sharp fa-running"></i> ${play.name}`);
       elem.removeClass("hide");
     }, 1000);
   };
@@ -176,9 +189,7 @@ $(() => {
   const showPlayerTwitch = (elem, play) => {
     elem.addClass("hide");
     setTimeout(function () {
-      elem.removeClass("emptylogo");
-      elem.html(play.social.twitch);
-      elem.addClass("twitchLogo");
+      elem.html(`<i class="fa-brands fa-twitch"></i> ${play.social.twitch}`);
       elem.removeClass("hide");
     }, 1000);
   };

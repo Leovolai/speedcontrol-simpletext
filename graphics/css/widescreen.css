@@ -1,0 +1,44 @@
+.runnerContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-self: flex-end;
+
+    font-size: 25px;
+}
+
+#commentatorContainer {
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+}
+
+#sponsor {
+    display: grid;
+    grid-template-rows: 1fr 1.3fr;
+    align-items: start;
+    justify-items: center;
+}
+
+#runInfo {
+    display: grid;
+    grid-template-columns: auto 436px;
+}
+
+#gameTitle {
+    font-size: 38px;
+}
+
+.gameTagContainer {
+    font-size: 22px;
+}
+
+.timerContainer {
+    border-left: 2px solid var(--border-color);
+    font-size: 80px;
+}
+
+.gameScreen {
+    border-left: var(--border-width) var(--border-style) var(--border-color);
+}
