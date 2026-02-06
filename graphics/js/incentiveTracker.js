@@ -43,11 +43,6 @@ const incentiveLayouts = {
     bidwar: renderBidwar
 };
 
-
-// ==========================
-// DOM REFERENCES
-// ==========================
-
 const incentiveRoot = document.getElementById("incentiveRoot");
 
 // ==========================
@@ -87,7 +82,7 @@ function renderBidwar(root, incentive) {
     sortedOptions.forEach((option, index) => {
         const container = document.createElement("div");
         container.className = "progressContainer";
-        container.style.position = "relative"; // ensure absolute children are positioned inside
+        container.style.position = "relative";
 
         container.innerHTML = `
             <div class="incentiveTextContainer">
@@ -112,10 +107,10 @@ function renderIncentive(incentive) {
     renderer(incentiveRoot, incentive);
 }
 
+// Incentive rotation
 let activeIndex = 0;
 
 function showNextIncentive() {
-    // fade out
     incentiveRoot.classList.add("is-hidden");
 
     // wait for fade-out to finish
@@ -124,9 +119,8 @@ function showNextIncentive() {
 
         activeIndex = (activeIndex + 1) % mockIncentives.length;
 
-        // fade back in
         incentiveRoot.classList.remove("is-hidden");
-    }, 400); // must match CSS duration
+    }, 400);
 }
 
 showNextIncentive();
