@@ -1,11 +1,3 @@
-#camera {
-    justify-content: center;
-}
-
-#camera div {
-    flex-grow: 1;
-}
-
 #gameTitle {
     font-size: 38px;
 }
@@ -16,8 +8,4 @@
 
 .timerContainer {
     font-size: 80px;
-}
-
-.gameScreen {
-    border-left: var(--border-width) var(--border-style) var(--border-color);
 }
