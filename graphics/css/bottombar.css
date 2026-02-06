@@ -31,6 +31,12 @@
     flex-direction: column;
 }
 
+.eventContainer img {
+    object-fit: contain;
+    max-height: 80%;
+
+}
+
 .eventContainer span {
     display: block;
     line-height: 1;
