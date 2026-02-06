@@ -3,32 +3,30 @@
 // ==========================
 
 const mockIncentives = [
-    //   {
-    //       id: "meryl",
-    //     type: "milestone",
-    //   game: "Metal Gear Solid",
-    // name: "Pelastetaanko Meryl?",
-    // current: 20,
-    // target: 100
-    // },
     {
-        id: "saphiCar",
+
+        type: "milestone",
+        game: "Metal Gear Solid",
+        name: "Pelastetaanko Meryl?",
+        current: 20,
+        target: 100
+    },
+    {
         type: "bidwar",
         game: "Crash Team Racing: Saphire",
         name: "Valitse hahmo",
         options: [
-            { id: "fakeCrash", name: "Fake Crash", amount: 14 },
-            { id: "pura", name: "Pura", amount: 50 },
-            { id: "penta", name: "Penta Penguin", amount: 1 },
-            { id: "polar", name: "Polar", amount: 99 },
-            { id: "ripper", name: "Ripper Roo", amount: 100 },
-            { id: "crash", name: "Crash Bandicoot", amount: 25 },
-            { id: "komodo", name: "Komodo Joe", amount: 66 },
-            { id: "cortex", name: "Cortex", amount: 75 },
+            { name: "Fake Crash", amount: 14 },
+            { name: "Pura", amount: 50 },
+            { name: "Penta Penguin", amount: 1 },
+            { name: "Polar", amount: 99 },
+            { name: "Ripper Roo", amount: 100 },
+            { name: "Crash Bandicoot", amount: 25 },
+            { name: "Komodo Joe", amount: 66 },
+            { name: "Cortex", amount: 75 },
         ]
     },
     {
-        id: "snakesong",
         type: "milestone",
         game: "Metal Gear Solid Delta: Snake Eater",
         name: "Lauletaan tikkaissa!",
