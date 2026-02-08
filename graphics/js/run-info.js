@@ -62,38 +62,49 @@ $(() => {
     }
   });
 
+  function setCommentator(elem, value) {
+    elem.innerHTML = value
+      ? `<i class="fa-solid fa-sharp fa-headset"></i> ${value}`
+      : "";
+    elem.classList.toggle('no_display', !value);
+  }
+
   commentators.on("change", (newVal) => {
     const leftElem = document.getElementById("commentatorLeft");
     const rightElem = document.getElementById("commentatorRight");
 
     if (newVal) {
-      leftElem.innerHTML = newVal.left
-        ? `<i class="fa-solid fa-sharp fa-headset"></i> ${newVal.left}`
-        : "";
-      rightElem.innerHTML = newVal.right
-        ? `<i class="fa-solid fa-sharp fa-headset"></i> ${newVal.right}`
-        : "";
+      setCommentator(leftElem, newVal.left);
+      setCommentator(rightElem, newVal.right);
       hostContainer.css("flex-direction", "");
     } else {
-      leftElem.innerHTML = "";
-      rightElem.innerHTML = "";
+      setCommentator(leftElem, null);
+      setCommentator(rightElem, null);
       hostContainer.css("flex-direction", "column-reverse");
     }
   });
 
-
   producer.on("change", (newVal) => {
+    const container = document.querySelector(".producerContainer");
     const producerSpan = document.getElementById("producerName");
-    if (!producerSpan) return;
+    if (!container || !producerSpan) return;
 
     if (newVal) {
-      producerSpan.innerHTML =
-        `<i class="fa-solid fa-microphone"></i> ${newVal}`;
+      container.classList.remove("active");
+      setTimeout(() => {
+        producerSpan.innerHTML = `<i class="fa-solid fa-microphone"></i> ${newVal}`;
+        container.classList.add("active"); // slide in
+      }, 600)
     } else {
-      producerSpan.innerHTML = "";
+      container.classList.remove("active");
+      // Slide out
+
+      // Wait for animation duration, then clear text
+      setTimeout(() => {
+        producerSpan.innerHTML = "";
+      }, 600); // matches CSS transition
     }
   });
-
 
   textCarouselReplicant.on("change", (newVal) => {
     if (newVal) {
@@ -186,13 +197,25 @@ $(() => {
   };
 
   const sceneUpdater = () => {
-    if (playerCycle == 0) {
-      playerCycle = 1;
-    } else if (playerCycle == 1) {
+    const playerNumber = parseInt(window.location.hash.replace("#", "")) || 1;
+    const activePlayer = runDataActiveRun.value.teams[playerNumber - 1].players[0];
+    const hasTwitch = Boolean(activePlayer?.social?.twitch);
+
+    // Decide next cycle state
+    if (playerCycle === 0) {
+      // Only move to Twitch if a username exists
+      if (hasTwitch) {
+        playerCycle = 1;
+      }
+      // Otherwise stay at 0 (name only)
+    } else if (playerCycle === 1) {
+      // Always go back to name after showing Twitch
       playerCycle = 0;
     }
+
     updateSceneFields(runDataActiveRun.value);
   };
+
 
   // Sets information on the pages for the run.
   const updateSceneFields = (runData) => {
@@ -231,12 +254,17 @@ $(() => {
   };
 
   const showPlayerName = (elem, play) => {
+    const newContent = `<i class="fa-solid fa-sharp fa-running"></i> ${play.name}`;
+    // Skip fade if the content is identical
+    if (elem.html() === newContent) return;
+
     elem.addClass("hide");
-    setTimeout(function () {
-      elem.html(`<i class="fa-solid fa-sharp fa-running"></i> ${play.name}`);
+    setTimeout(() => {
+      elem.html(newContent);
       elem.removeClass("hide");
     }, 1000);
   };
+
 
   const showPlayerTwitch = (elem, play) => {
     elem.addClass("hide");
