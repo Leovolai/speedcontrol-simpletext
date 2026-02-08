@@ -1,3 +1,7 @@
+:root {
+    --animSpeed: 600ms;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -23,7 +27,7 @@ body {
     display: flex;
     align-items: flex-end;
     padding: 10px;
-    font-size: 20px;
+    font-size: 22px;
     gap: 5px;
 }
 
@@ -77,10 +81,6 @@ body {
     text-shadow: 2px 2px rgba(0, 0, 0, 0.7);
 }
 
-.tag:has(span[id]:empty) {
-    display: none;
-}
-
 .gameTagContainer {
     display: flex;
     gap: 10px;
@@ -88,11 +88,18 @@ body {
 }
 
 .producerContainer {
-    font-size: 20px;
     position: absolute;
     bottom: 0;
     left: 0;
     margin: 10px;
+    font-size: 20px;
+
+    transform: translateX(-250px);
+    transition: transform var(--animSpeed) ease;
+}
+
+.producerContainer.active {
+    transform: translateX(0);
 }
 
 img {
@@ -109,6 +116,10 @@ img {
 
 .hide {
     opacity: 0 !important;
+}
+
+.no_display {
+    display: none;
 }
 
 .timer_finished {
