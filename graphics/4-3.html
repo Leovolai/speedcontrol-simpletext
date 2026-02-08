@@ -8,22 +8,15 @@
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/tallscreen.css">
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="js/animations.js"></script>
     <script src="js/run-info.js"></script>
     <script src="js/timer.js"></script>
 </head>
 
 <body>
     <div id="camera">
-        <div class="tag">
-            <span id="commentatorLeft"></span>
-        </div>
-        <div class="tag">
-            <span id="player"></span>
-        </div>
-        <div class="tag">
-            <span id="commentatorRight"></span>
-        </div>
+        <div class="tag" id="commentatorLeft"></div>
+        <div class="tag"><span id="player"></span></div>
+        <div class="tag" id="commentatorRight"></div>
 
     </div>
     <div id="sponsor" class="leftBar">
@@ -51,9 +44,7 @@
 
         <img src="img/sponsor_gamepit.png"></img>
 
-        <div class="tag producerContainer">
-            <span id="producerName"></span>
-        </div>
+        <div class="tag producerContainer" id="producerName"></div>
     </div>
 
     <div id="gameplay"></div>

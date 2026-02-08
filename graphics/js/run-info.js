@@ -197,25 +197,13 @@ $(() => {
   };
 
   const sceneUpdater = () => {
-    const playerNumber = parseInt(window.location.hash.replace("#", "")) || 1;
-    const activePlayer = runDataActiveRun.value.teams[playerNumber - 1].players[0];
-    const hasTwitch = Boolean(activePlayer?.social?.twitch);
-
-    // Decide next cycle state
-    if (playerCycle === 0) {
-      // Only move to Twitch if a username exists
-      if (hasTwitch) {
-        playerCycle = 1;
-      }
-      // Otherwise stay at 0 (name only)
-    } else if (playerCycle === 1) {
-      // Always go back to name after showing Twitch
+    if (playerCycle == 0) {
+      playerCycle = 1;
+    } else if (playerCycle == 1) {
       playerCycle = 0;
     }
-
     updateSceneFields(runDataActiveRun.value);
   };
-
 
   // Sets information on the pages for the run.
   const updateSceneFields = (runData) => {
@@ -246,16 +234,21 @@ $(() => {
         showPlayerName(player1, runData.teams[0].players[0]);
         showPlayerName(player2, runData.teams[1].players[0]);
       } else if (playerCycle == 1) {
-        showPlayerTwitch(player, team.players[0]);
-        showPlayerTwitch(player1, runData.teams[0].players[0]);
-        showPlayerTwitch(player2, runData.teams[1].players[0]);
+        if (team.players[0]?.social?.twitch) {
+          showPlayerTwitch(player, team.players[0]);
+        }
+        if (runData.teams[0].players[0]?.social?.twitch) {
+          showPlayerTwitch(player1, runData.teams[0].players[0]);
+        }
+        if (runData.teams[1].players[0]?.social?.twitch) {
+          showPlayerTwitch(player2, runData.teams[1].players[0]);
+        }
       }
     }
   };
 
   const showPlayerName = (elem, play) => {
     const newContent = `<i class="fa-solid fa-sharp fa-running"></i> ${play.name}`;
-    // Skip fade if the content is identical
     if (elem.html() === newContent) return;
 
     elem.addClass("hide");
@@ -265,16 +258,16 @@ $(() => {
     }, 1000);
   };
 
-
   const showPlayerTwitch = (elem, play) => {
     elem.addClass("hide");
-    setTimeout(function () {
+    setTimeout(() => {
       elem.html(`<i class="fa-brands fa-twitch"></i> ${play.social.twitch}`);
       elem.removeClass("hide");
     }, 1000);
   };
 
-  setInterval(sceneUpdater, 15000);
+
+  setInterval(sceneUpdater, 2000);
   setInterval(textCarouselUpdater, 25000);
 
   textCarouselUpdater();
