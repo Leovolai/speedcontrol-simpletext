@@ -14,7 +14,7 @@ $(() => {
   const player1 = $("#player1"); // full layout player 1
   const player2 = $("#player2"); // full layout player 2
   const twitch = $("#twitch"); // twitch.html
-  const commentatorContainer = $("#commentatorContainer");
+  const sponsorCarousel = $("#sponsorCarousel");
   const donationInfoElem = document.getElementById("donationInfo");
   const hostContainer = $(".hostContainer");
 
@@ -41,7 +41,8 @@ $(() => {
     "textCarousel",
     speedcontrolBundle,
   );
-  const backgrounds = nodecg.Replicant("backgrounds", speedcontrolBundle);
+
+  const sponsorCarouselReplicant = nodecg.Replicant('assets:sponsor-imgs');
 
   runDataActiveRunSurrounding.on("change", (newVal) => {
     if (newVal) updateNextGame(runDataActiveRunSurrounding);
@@ -49,17 +50,6 @@ $(() => {
 
   runDataActiveRun.on("change", (newVal) => {
     if (newVal) updateSceneFields(newVal);
-  });
-
-  backgrounds.on("change", (newVal) => {
-    if (newVal) {
-      Object.keys(newVal).forEach((key) => {
-        const imgElem = document.getElementById(key);
-        if (imgElem) {
-          imgElem.src = newVal[key];
-        }
-      });
-    }
   });
 
   function setCommentator(elem, value) {
@@ -111,6 +101,41 @@ $(() => {
       texts = newVal.split(";");
     }
   });
+
+  let sponsorInterval = null;
+
+  const startSponsorCarousel = (assets) => {
+    if (!assets || assets.length === 0) return;
+
+    sponsorCarousel.attr("src", assets[0].url);
+
+    if (sponsorInterval) {
+      clearInterval(sponsorInterval);
+      sponsorInterval = null;
+    }
+
+    if (assets.length > 1) {
+      let sponsorIndex = 0;
+
+      sponsorInterval = setInterval(() => {
+        sponsorIndex = (sponsorIndex + 1) % assets.length;
+
+        sponsorCarousel.addClass("hide");
+
+        setTimeout(() => {
+          sponsorCarousel.attr("src", assets[sponsorIndex].url);
+
+          sponsorCarousel.removeClass("hide");
+        }, 500);
+      }, 15000);
+    }
+  };
+
+  // Listen for changes
+  sponsorCarouselReplicant.on("change", (newValue) => {
+    startSponsorCarousel(newValue);
+  });
+
 
   donateStatus.on("change", (newVal) => {
     if (!donationInfoElem) return;
@@ -267,7 +292,7 @@ $(() => {
   };
 
 
-  setInterval(sceneUpdater, 2000);
+  setInterval(sceneUpdater, 15000);
   setInterval(textCarouselUpdater, 25000);
 
   textCarouselUpdater();

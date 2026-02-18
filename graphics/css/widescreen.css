@@ -1,23 +1,33 @@
-.runnerContainer {
+.leftBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 10px;
+    margin: 0;
+}
+
+.nametags-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    justify-self: flex-end;
     font-size: 25px;
 }
 
-#commentatorContainer {
+#commentator-container {
     display: flex;
     justify-content: space-around;
     font-size: 22px;
 }
 
-#sponsor {
-    display: grid;
-    grid-template-rows: 1fr 1.3fr;
-    align-items: start;
-    justify-items: center;
+.imgContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 #runInfo {

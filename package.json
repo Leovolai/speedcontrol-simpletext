@@ -18,10 +18,12 @@
     },
     "assetCategories": [
       {
-        "name": "backgrounds",
-        "title": "Backgrounds for overlays",
+        "name": "sponsor-imgs",
+        "title": "Sponsor images",
         "allowedTypes": [
-          "png"
+          "png",
+          "jpg",
+          "jpeg"
         ]
       }
     ],
@@ -46,10 +48,10 @@
         "workspace": "FINNRUNS Graphics"
       },
       {
-        "name": "Backgrounds",
-        "title": "Backgrounds",
+        "name": "Layout Controls",
+        "title": "Layout Controls",
         "width": 3,
-        "file": "backgrounds.html",
+        "file": "layoutcontrols.html",
         "workspace": "FINNRUNS Graphics"
       }
     ],
