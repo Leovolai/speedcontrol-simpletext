@@ -2,6 +2,10 @@
           font-family: monospace;
       }
 
+      h1 {
+          font-size: 25px;
+      }
+
       button {
           font-family: 'Roboto';
           color: white;
