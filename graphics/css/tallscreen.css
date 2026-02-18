@@ -39,7 +39,3 @@
 .timerContainer {
     font-size: 80px;
 }
-
-.tag:has([id]#player) {
-    flex-grow: 1;
-}

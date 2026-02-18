@@ -27,10 +27,14 @@ body {
     box-sizing: border-box;
     display: flex;
     align-items: flex-end;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding: 10px;
     font-size: 22px;
     gap: 5px;
+}
+
+#camera div {
+    flex-grow: 1;
 }
 
 .gameContainer,
@@ -76,12 +80,6 @@ body {
     text-transform: uppercase;
     text-shadow: 2px 2px rgba(0, 0, 0, 0.7);
     white-space: nowrap;
-}
-
-.tag:has([id]#player),
-.tag:has([id]#player1),
-.tag:has([id]#player2) {
-    flex-grow: 1;
 }
 
 .gameTagContainer {
