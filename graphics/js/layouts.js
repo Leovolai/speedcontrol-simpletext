@@ -1,3 +1,9 @@
+// ==========
+// REPLICANTS
+// ==========
+
+const colorSelectorRep = nodecg.Replicant('eventColors', { defaultValue: 'FINNRUNS' });
+
 // ==================
 // LAYOUT DEFINITIONS
 // ==================
@@ -6,13 +12,48 @@ const layoutWidth = 1920;
 const layoutHeight = 1080;
 const bottomBarHeight = 72;
 
-const DEFAULT_COLORS = {
-    borderColor: '#2C7CB2',     // FR: #2C7CB2 QUEST: #23926C
-    bottomGradient: '#08426A',  // FR: #08426A QUEST: #17523C
-    topGradient: '#09558B'      // FR: #09558B QUEST: #097859
+const FINNRUNS_COLORS = {
+    borderColor: '#2C7CB2',
+    bottomGradient: '#08426A',
+    topGradient: '#09558B'
 };
 
-// Three layout archetypes have been defined: widescreen, tallscreen and race.
+const QUEST_COLORS = {
+    borderColor: '#23926C',
+    bottomGradient: '#17523C',
+    topGradient: '#097859'
+};
+
+// This object will always reflect the currently selected colors
+const LAYOUT_COLORS = { ...FINNRUNS_COLORS };
+
+// Apply to layout immediately whenever the replicant changes
+colorSelectorRep.on('change', newValue => {
+    switch (newValue) {
+        case 'FINNRUNS':
+            Object.assign(LAYOUT_COLORS, FINNRUNS_COLORS);
+            break;
+        case 'QUEST':
+            Object.assign(LAYOUT_COLORS, QUEST_COLORS);
+            break;
+    }
+
+    // Re-apply CSS variables immediately
+    const root = document.documentElement;
+    root.style.setProperty('--border-color', LAYOUT_COLORS.borderColor);
+    root.style.setProperty('--bottom-gradient', LAYOUT_COLORS.bottomGradient);
+    root.style.setProperty('--top-gradient', LAYOUT_COLORS.topGradient);
+
+    // Optional: trigger any other visual updates that read from LAYOUT_DEFS.colors
+});
+
+
+
+// ==============
+// GRAPHICS FILES
+// ==============
+
+// Three layout archetypes have been defined: "widescreen", "tallscreen" and "race".
 // When creating a new layout, copy an appropriate archetype and change the numbers as appropriate.
 // The rest of the areas automatically adjust based on the gameplay and camera areas' dimensions.
 
@@ -25,7 +66,7 @@ const LAYOUT_DEFS = {
         gameplayHeight: 792,
         cameraHeight: 370,
         bottomHeight: bottomBarHeight,
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     },
     "16-10": {
         archetype: "widescreen",
@@ -35,7 +76,7 @@ const LAYOUT_DEFS = {
         gameplayHeight: 795,
         cameraHeight: 370,
         bottomHeight: bottomBarHeight,
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     },
     "16-9-race": {
         archetype: "race",
@@ -45,7 +86,7 @@ const LAYOUT_DEFS = {
         gameplayHeight: 540,
         cameraWidth: 700,
         bottomHeight: bottomBarHeight,
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     },
     "4-3": {
         archetype: "tallscreen",
@@ -54,7 +95,7 @@ const LAYOUT_DEFS = {
         gameplayWidth: 1344,
         cameraHeight: 380,
         bottomHeight: bottomBarHeight,
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     },
     "3-2": {
         archetype: "tallscreen",
@@ -63,7 +104,7 @@ const LAYOUT_DEFS = {
         gameplayWidth: 1512,
         cameraHeight: 380,
         bottomHeight: bottomBarHeight,
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     },
 
     "4-3-race": {
@@ -74,7 +115,7 @@ const LAYOUT_DEFS = {
         gameplayHeight: 720,
         cameraWidth: 578,
         bottomHeight: bottomBarHeight,
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     },
 
     "3-2-race": {
@@ -85,7 +126,7 @@ const LAYOUT_DEFS = {
         gameplayHeight: 640,
         cameraWidth: 578,
         bottomHeight: bottomBarHeight,
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     },
 }
 
@@ -260,7 +301,7 @@ if (LAYOUT_DEFS[layoutId]) {
 } else {
     // Bottom bar, overlays, misc graphics
     layout = {
-        colors: DEFAULT_COLORS
+        colors: LAYOUT_COLORS
     };
 }
 
