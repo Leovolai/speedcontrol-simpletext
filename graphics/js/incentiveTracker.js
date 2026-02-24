@@ -4,7 +4,6 @@
 
 const mockIncentives = [
     {
-
         type: "milestone",
         game: "Metal Gear Solid",
         name: "Pelastetaanko Meryl?",
@@ -28,12 +27,23 @@ const mockIncentives = [
     },
     {
         type: "milestone",
-        game: "Metal Gear Solid Delta: Snake Eater",
-        name: "Lauletaan tikkaissa!",
-        current: 50,
+        game: "Spyro 3: Year of the Dragon",
+        name: "Kerätään ihan kaikki munat",
+        current: 13,
         target: 50
+    },
+    {
+        type: "bidwar",
+        game: "Sifu",
+        name: "Pelataanko mies- vai naishahmolla?",
+        options: [
+            { name: "Mieshahmo", amount: 10 },
+            { name: "Naishahmo", amount: 25 }
+        ]
     }
 ];
+
+incentives = mockIncentives;
 // =========== MOCK DATA END
 
 const incentiveLayouts = {
@@ -113,9 +123,9 @@ function showNextIncentive() {
 
     // wait for fade-out to finish
     setTimeout(() => {
-        renderIncentive(mockIncentives[activeIndex]);
+        renderIncentive(incentives[activeIndex]);
 
-        activeIndex = (activeIndex + 1) % mockIncentives.length;
+        activeIndex = (activeIndex + 1) % incentives.length;
 
         incentiveRoot.classList.remove("is-hidden");
     }, 400);
